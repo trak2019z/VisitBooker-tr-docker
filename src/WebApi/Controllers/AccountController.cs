@@ -35,7 +35,7 @@ namespace WebApi.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var role = await _roleManager.FindByNameAsync(ApplicationRoles.StandardUser);
+                    var role = await _roleManager.FindByNameAsync(ApplicationRoles.Customer);
                     await _userManager.AddToRoleAsync(user, role.Name);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);

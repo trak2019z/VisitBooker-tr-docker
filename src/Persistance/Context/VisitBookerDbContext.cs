@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Security;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistance.Context
 {
-    public class VisitBookerDbContext : DbContext
+    public class VisitBookerDbContext : IdentityDbContext<ApplicationUser>
     {
         public VisitBookerDbContext(DbContextOptions<VisitBookerDbContext> options) : base(options)
         {
