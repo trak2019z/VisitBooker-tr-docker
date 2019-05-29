@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
+    [Route("api/account")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -31,7 +32,14 @@ namespace WebApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, SignedUpAt = DateTime.UtcNow };
+                var user = new ApplicationUser
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    UserName = model.Email,
+                    Email = model.Email,
+                    SignedUpAt = DateTime.UtcNow
+                };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
