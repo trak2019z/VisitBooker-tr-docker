@@ -13,6 +13,7 @@ namespace Domain.Entities
             VisitDate = date;
             Status = VisitStatus.Generated;
         }
+        protected Visit() { }
 
         public DateTime VisitDate { get;  protected set; }
         public VisitStatus Status { get; protected set; }

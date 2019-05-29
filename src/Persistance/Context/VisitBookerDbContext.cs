@@ -1,4 +1,5 @@
-﻿using Domain.Security;
+﻿using Domain.Entities;
+using Domain.Security;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,9 @@ namespace Persistance.Context
         public VisitBookerDbContext(DbContextOptions<VisitBookerDbContext> options) : base(options)
         {
         }
+
+        public DbSet<Visit> Visits { get; set; }
+        public DbSet<VisitType> VisitTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {

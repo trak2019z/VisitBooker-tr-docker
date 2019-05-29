@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Security
 {
@@ -8,5 +10,7 @@ namespace Domain.Security
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime SignedUpAt { get; set; }
+        public virtual ICollection<Visit> Visits { get; protected set; }
+
     }
 }
