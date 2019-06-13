@@ -1,0 +1,34 @@
+version: '3.2'
+
+services:
+  visitbooker-postgres:
+    image: postgres:9.6
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+        POSTGRES_PASSWORD: V3ufzn
+        POSTGRES_USER: booker
+    volumes:
+      - visitbookerpgdata:/var/lib/postgresql/data
+    networks:
+      - visitbookernetwork
+ 
+  visitbooker-app:
+    build: .
+    ports:
+      - 5000:5000
+    links:
+      - visitbooker-postgres
+    depends_on:
+      - visitbooker-postgres
+    restart: unless-stopped
+    networks:
+      - visitbookernetwork
+     
+volumes:
+  visitbookerpgdata:
+
+networks:
+  visitbookernetwork:
+     driver: bridge
