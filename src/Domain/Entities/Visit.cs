@@ -7,10 +7,11 @@ namespace Domain.Entities
 {
     public class Visit : SoftDeleteEntityBase
     {
-        public Visit(string userName, DateTime date)
+        public Visit(string userName, DateTime date, int visitTypeId)
         {
             UserName = userName;
             VisitDate = date;
+            VisitTypeId = visitTypeId;
             Status = VisitStatus.Generated;
         }
         protected Visit() { }

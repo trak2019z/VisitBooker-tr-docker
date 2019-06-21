@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using Application.Visits.Commands;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Bootstrap;
+using Domain.Core.Command;
+using Domain.Core.Events;
+using Domain.Core.Query;
 using Domain.Security;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -69,7 +75,8 @@ namespace WebApi
                 .AddJwtBearer(options =>
                 {
                     options.RequireHttpsMetadata = false;
-                    options.Authority = Configuration["ASPNETCORE_TOKEN_AUTHORITY"];
+                    options.Authority = "https://localhost:5001";
+                    //options.Authority = Configuration["ASPNETCORE_TOKEN_AUTHORITY"];
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         NameClaimType = OpenIdConnectConstants.Claims.Subject,
@@ -93,6 +100,12 @@ namespace WebApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<VisitBookerDbContextInitializer>();
+
+            services.AddScoped<ICommandBus, CommandBus>();
+            services.AddScoped<IQueryBus, QueryBus>();
+            services.AddScoped<IEventBus, EventBus>();
+            services.AddMediatR(typeof(AddNewVisitCommandHandler).GetTypeInfo().Assembly);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
