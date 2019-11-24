@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   visitbooker-frontend:
-    image: visitbooker-frontend:latest
+    image: dnaprawa/visitbooker-frontend:latest
     networks:
       - overlay
     ports:
